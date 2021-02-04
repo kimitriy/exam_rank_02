@@ -17,10 +17,10 @@ int main(int argc, char **argv)
         j = 0;
         while(s2[j] != '\0')
         {
-            if (s1[i] == s2[j] && c[s1[i]] == 0)
+            if (s1[i] == s2[j] && c[(int)s1[i]] == 0)
             {
                 write(1, &s1[i], 1);
-                c[s1[i]] = 1;
+                c[(int)s1[i]] = 1;
             }
             j++;
         }
