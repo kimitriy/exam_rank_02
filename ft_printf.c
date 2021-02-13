@@ -1,9 +1,8 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
-int		g_result;
-int		g_width;
+
+int		g_rv;
+int		g_wdth;
 int		g_prcsn;
 
 int		ft_strlen(char *str)
@@ -18,7 +17,7 @@ int		ft_strlen(char *str)
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
-	g_result++;
+	g_rv++;
 }
 
 void	ft_putstr(char *str, int lngth)
@@ -67,10 +66,10 @@ void	type_s(char *str)
 
 	if (g_prcsn != -1 && g_prcsn < lngth) //if given precision is shorter then the string's length 
 		lngth = g_prcsn;				//assign it to the string length
-	while (g_width > lngth)
+	while (g_wdth > lngth)
 	{
 		ft_putchar(' ');
-		g_width--;
+		g_wdth--;
 	}
 	ft_putstr(str, lngth);
 }
@@ -84,10 +83,10 @@ void	type_x(unsigned long nbr)
 
 	if (g_prcsn != -1 && g_prcsn > lngth)
 		lngth = g_prcsn;
-	while (g_width > lngth)
+	while (g_wdth > lngth)
 	{
 		ft_putchar(' ');
-		g_width--;
+		g_wdth--;
 	}
 	while (lngth > ft_strlen(str))
 	{
@@ -113,12 +112,12 @@ void	type_d(long nbr)
 
 	if (g_prcsn != -1 && g_prcsn > lngth)
 		lngth = g_prcsn;
-	if (minus == 1 && g_width > 0)
-		g_width--;
-	while (g_width > lngth)
+	if (minus == 1 && g_wdth > 0)
+		g_wdth--;
+	while (g_wdth > lngth)
 	{
 		ft_putchar(' ');
-		g_width--;
+		g_wdth--;
 	}
 	if (minus == 1)
 		ft_putchar('-');
@@ -133,21 +132,21 @@ void	type_d(long nbr)
 
 int		ft_printf(const char *str, ... )
 {
-	g_result = 0;
+	g_rv = 0;
 	int	i = 0;
 	va_list	ap;
 
 	va_start(ap, str);
 	while (str[i] != '\0')
 	{
-		if (str[i] == '%' && str[i+1] != '\0')
+		if (str[i] == '%' && str[i + 1] != '\0')
 		{
 			i++;
-			g_width = 0;
+			g_wdth = 0;
 			g_prcsn = -1; //-1 means that minimal presicion is not set, because 0 is not suitable as an initial value
 			while (str[i] >= '0' && str[i] <= '9')
 			{
-				g_width = g_width * 10 + (str[i] - '0');
+				g_wdth = g_wdth * 10 + (str[i] - '0');
 				i++;
 			}
 			if (str[i] == '.')
@@ -174,18 +173,5 @@ int		ft_printf(const char *str, ... )
 		i++;
 	}
 	va_end(ap);
-	return (g_result);
-}
-
-#include <stdio.h>
-
-int		main(void)
-{
-	printf("%10.20s\n", "toto");
-	ft_printf("%10.20s\n", "toto");
-	// printf("%s", ft_itoa(0x5ab4321, 16));
-	printf("Magic %s is %5d\n", "number", -42);
-	ft_printf("Magic %s is %5d\n", "number", -42);
-	printf("Hexadecimal for %.5d is %x\n", -42, 45756);
-	ft_printf("Hexadecimal for %.5d is %x\n", -42, 45756);
+	return (g_rv);
 }
