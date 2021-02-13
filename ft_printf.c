@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-#include <stdio.h>
 
 int		g_result;
 int		g_width;
@@ -55,10 +54,8 @@ char	*ft_itoa(unsigned long nbr, int base)
 		if (nbr % base > 9)
 			str[lngth - 1] += 'a' - 10;
 		else
-		{
 			str[lngth - 1] += '0';
-			nbr /= base;
-		}
+		nbr /= base;
 		lngth--;
 	}
 	return (str);
@@ -84,6 +81,7 @@ void	type_x(unsigned long nbr)
 
 	str = ft_itoa(nbr, 16);
 	int		lngth = ft_strlen(str);
+
 	if (g_prcsn != -1 && g_prcsn > lngth)
 		lngth = g_prcsn;
 	while (g_width > lngth)
@@ -91,6 +89,39 @@ void	type_x(unsigned long nbr)
 		ft_putchar(' ');
 		g_width--;
 	}
+	while (lngth > ft_strlen(str))
+	{
+		ft_putchar('0');
+		lngth--;
+	}
+	ft_putstr(str, ft_strlen(str));
+	free(str);
+}
+
+void	type_d(long nbr)
+{
+	char	*str;
+	int		minus = 0;
+
+	if (nbr < 0)
+	{
+		minus = 1;
+		nbr *= -1;
+	}
+	str = ft_itoa(nbr, 10);
+	int		lngth = ft_strlen(str);
+
+	if (g_prcsn != -1 && g_prcsn > lngth)
+		lngth = g_prcsn;
+	if (minus == 1 && g_width > 0)
+		g_width--;
+	while (g_width > lngth)
+	{
+		ft_putchar(' ');
+		g_width--;
+	}
+	if (minus == 1)
+		ft_putchar('-');
 	while (lngth > ft_strlen(str))
 	{
 		ft_putchar('0');
@@ -133,8 +164,8 @@ int		ft_printf(const char *str, ... )
 				type_s(va_arg(ap, char *));
 			else if (str[i] == 'x')
 				type_x(va_arg(ap, unsigned int));
-			/*else if (str[i] == 'd')
-				type_d(va_arg(ap, int));*/
+			else if (str[i] == 'd')
+				type_d(va_arg(ap, int));
 			else
 				ft_putchar(str[i]);
 		}
@@ -146,12 +177,15 @@ int		ft_printf(const char *str, ... )
 	return (g_result);
 }
 
+#include <stdio.h>
+
 int		main(void)
 {
 	printf("%10.20s\n", "toto");
 	ft_printf("%10.20s\n", "toto");
-	//printf("%s", ft_itoa(0x5ab4321, 16));
-	// printf("Magic %s is %5d", "number\n", 42);
-	printf("Hexadecimal for %d is %x\n", 42, 42);
-	ft_printf("Hexadecimal for %d is %x\n", 42, 42);
+	// printf("%s", ft_itoa(0x5ab4321, 16));
+	printf("Magic %s is %5d\n", "number", -42);
+	ft_printf("Magic %s is %5d\n", "number", -42);
+	printf("Hexadecimal for %.5d is %x\n", -42, 45756);
+	ft_printf("Hexadecimal for %.5d is %x\n", -42, 45756);
 }
