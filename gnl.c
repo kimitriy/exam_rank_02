@@ -1,26 +1,32 @@
-#include <stdio.h>
 #include "get_next_line.h"
 
 int		get_next_line(char **line)
 {
-	char	c;
-	char	*buf;
 	int		rv;
 	int		i = 0;
+	char	c;
+	char	*buf;
 
 	if (!(buf = (char*)malloc(10000)))
 		return (-1);
+
 	*line = buf;
-	while ((rv = read(0, &c, 1)) > 0 && c != '\n' && c != '\0')
+
+	while ((rv = read(0, &c, 1)) > 0 && c != '\0' && c != '\n')
 	{
 		buf[i] = c;
 		i++;
 	}
-	buf[i] = '\0';
-	if (rv == -1)
+
+	buf[i] = '\n';
+
+	if (rv < 0)
 		return (-1);
+
 	return (rv ? 1 : 0);
 }
+
+#include <stdio.h>
 
 int main(void)
 {
