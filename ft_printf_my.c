@@ -20,17 +20,26 @@ void	ft_putchar(char c)
 	g_rv++;
 }
 
+// void	ft_putstr(char *str, int lngth)
+// {
+// 	int		i = 0;
+
+// 	while (str[i] != '\0' && lngth > 0)
+// 	{
+// 		ft_putchar(str[i]);
+// 		i++;
+// 		lngth--;
+// 	}
+// }
+
 void	ft_putstr(char *str, int lngth)
 {
 	int		i = 0;
 
-	while (str[i] != '\0' && lngth > 0)
-	{
+	while (str[i++] != '\0' && i < lngth)
 		ft_putchar(str[i]);
-		i++;
-		lngth--;
-	}
 }
+
 
 int		ft_nbrlen(long nbr, int base)
 {
