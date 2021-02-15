@@ -1,21 +1,21 @@
 #include "ft_printf.h"
 
 
-int		ft_nbrlen(long nbr, int base)
-{
-	int		i = 1;
+// int		ft_nbrlen(long nbr, int base)
+// {
+// 	int		i = 1;
 
-	while (nbr /= base)
-		i++;
-	return (i);
-}
+// 	while (nbr /= base)
+// 		i++;
+// 	return (i);
+// }
 
-void	ft_putnbr(long nbr, int base, char *dgts)
-{
-	if (nbr >= base)
-		ft_putnbr(nbr / base, base, dgts);
-	write(1, &dgts[nbr % base], 1);
-}
+// void	ft_putnbr(long nbr, int base, char *dgts)
+// {
+// 	if (nbr >= base)
+// 		ft_putnbr(nbr / base, base, dgts);
+// 	write(1, &dgts[nbr % base], 1);
+// }
 
 int		ft_printf2(const char *line, ... )
 {

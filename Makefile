@@ -6,13 +6,15 @@
 #    By: rburton <rburton@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/28 11:32:38 by rburton           #+#    #+#              #
-#    Updated: 2021/02/13 21:29:44 by rburton          ###   ########.fr        #
+#    Updated: 2021/02/15 14:35:57 by rburton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC 		= 	ft_printf.c \
+SRC 		= 	ft_printf_main.c \
+				ft_printf_my.c \
+				ft_printf.c \
 				ft_printf2.c \
-				ft_printf_main.c \
+				
 
 
 OBJS		= ${SRC:.c=.o}

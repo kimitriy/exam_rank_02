@@ -7,6 +7,8 @@
 
 # include <stdio.h> //for main()
 
+int		ft_printf_my(const char *str, ... );
+
 //ft_printf.c
 int		ft_strlen(char *str);
 void	ft_putchar(char c);
