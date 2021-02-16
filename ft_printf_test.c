@@ -22,7 +22,7 @@ void	ft_putchar(char c)
 void	ft_putstr(char *str, int lngth)
 {
 	int		i = -1;
-	
+
 	while (str[++i] && i < lngth)
 		ft_putchar(str[i]);
 }
@@ -38,7 +38,7 @@ int		ft_nbrlen(long nbr, int base)
 
 void	ft_putnbr(long nbr, int base, char *dgts)
 {
-	if (nbr >= base)
+	if (nbr > base)
 		ft_putnbr(nbr / base, base, dgts);
 	ft_putchar(dgts[nbr % base]);
 }
@@ -52,7 +52,7 @@ void	type_s(char *str)
 	while (g_wdth-- > lngth)
 		ft_putchar(' ');
 	ft_putstr(str, lngth);
-}	
+}
 
 void	type_x(unsigned long nbr)
 {
@@ -87,12 +87,12 @@ void	type_d(long nbr)
 	ft_putnbr(nbr, 10, "0123456789");
 }
 
-int		ft_printf_my(const char *str, ...)
+int		ft_printf(const char *str, ... )
 {
-	g_rv = 0;
+	va_list ap;
 	int		i = 0;
-	va_list	ap;
 
+	g_rv = 0;
 	va_start(ap, str);
 	while (str[i])
 	{
@@ -108,8 +108,8 @@ int		ft_printf_my(const char *str, ...)
 			}
 			if (str[i] == '.')
 			{
-				g_prcsn = 0;
 				i++;
+				g_prcsn = 0;
 				while (str[i] >= '0' && str[i] <= '9')
 				{
 					g_prcsn = g_prcsn * 10 + (str[i] - '0');
