@@ -4,20 +4,33 @@ int		get_next_line(char **line)
 {
 	char	buf[10000] = {'\0'};
 	char	c;
-	int		rv;
-	int		i = 0;
+	int		rv = 0;
+	int		i = -1;
 
-	if (!(*line = (char*)malloc(10000)))
-		return (-1);
 	while ((rv = read(0, &c, 1)) > 0 && c != '\0' && c != '\n')
-		buf[i++] = c;
-	i = -1;
-	while (buf[++i] != '\0')
-		line[0][i] = buf[i];
-	if (rv == -1)
-		return (-1);
-	return (rv ? 1 : 0);
+		buf[++i] = c;
+	*line = buf;
+	return (rv < 0 ? -1 : rv);
 }
+
+// int		get_next_line(char **line)
+// {
+// 	char	buf[10000] = {'\0'};
+// 	char	c;
+// 	int		rv;
+// 	int		i = 0;
+
+// 	if (!(*line = (char*)malloc(10000)))
+// 		return (-1);
+// 	while ((rv = read(0, &c, 1)) > 0 && c != '\0' && c != '\n')
+// 		buf[i++] = c;
+// 	i = -1;
+// 	while (buf[++i] != '\0')
+// 		line[0][i] = buf[i];
+// 	if (rv == -1)
+// 		return (-1);
+// 	return (rv ? 1 : 0);
+// }
 
 // int		get_next_line(char **line)
 // {
