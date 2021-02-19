@@ -13,6 +13,7 @@ int		get_next_line(char **line)
 		return (-1);
 	if (!(*line = (char*)malloc(i + 1)))
 		return (-1);
+	**line = NULL;
 	i = 0;
 	while (buf[i] != '\0')
 	{
@@ -22,6 +23,28 @@ int		get_next_line(char **line)
 	line[0][i] = '\0';
 	return (rv);
 }
+
+// int            get_next_line(char **line)
+// {
+//     int        i;
+//     char    *buf;
+//     if (!line || !(buf = malloc(10000)) || read(0, buf, 0) != 0)
+//         return (-1);
+//     *line = buf;
+//     i = 0;
+//     while ((read(0, &buf[i], 1)) == 1)
+//     {
+//         if (buf[i] == '\n')
+//         {
+//             buf[i] = '\0';
+//             return (1);
+//         }
+//         i++;
+//     }
+//     buf[i] = '\0';
+//     return (0);
+// }
+
 
 // int		get_next_line(char **line)
 // {
